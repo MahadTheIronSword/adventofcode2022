@@ -1,23 +1,32 @@
 namespace AdventOfCode;
 
 public static class Day2 {
+    private static readonly int WinGain = 6;
+    private static readonly int DrawGain = 3;
+
     private static Dictionary<string, string> DecryptionGuide = new Dictionary<string, string>() {
         {"A", "Rock"},
         {"B", "Paper"},
-        {"C", "Scissors"},
-        {"X", "Rock"},
-        {"Y", "Paper"},
-        {"Z", "Scissors"}
+        {"C", "Scissors"}
+    };
+
+    private static Dictionary<string, int> EndScoreGuide = new Dictionary<string, int>() {
+        {"X", 0},
+        {"Y", DrawGain},
+        {"Z", WinGain}
     };
 
     private static Dictionary<string, int> ScoreGuide = new Dictionary<string, int>() {
         {"Rock", 1},
         {"Paper", 2},
         {"Scissors", 3}
-    };  
+    }; 
 
-    private static readonly int WinGain = 6;
-    private static readonly int DrawGain = 3;
+    private static Dictionary<string, string> WinGuide = new Dictionary<string, string>() {
+        {"Rock", "Paper"},
+        {"Paper", "Scissors"},
+        {"Scissors", "Rock"}
+    };
 
     public static void Run() {
         string[] lines = System.IO.File.ReadAllLines("Source/Days/Day2/Input.txt");
@@ -28,49 +37,21 @@ public static class Day2 {
             string[] columns = line.Split(" ");
 
             string otherMove = DecryptionGuide[columns[0]];
-            string yourMove = DecryptionGuide[columns[1]];
+            int endResult = EndScoreGuide[columns[1]];
 
-            score += ScoreGuide[yourMove];
-
-            if (yourMove == "Rock") {
-                if (otherMove == "Paper") {
-                    continue;
-                }
-
-                if (otherMove == "Scissors") {
-                    score += WinGain;
-                    continue;
-                }
-
-                score += DrawGain;
+            if (endResult == WinGain) {
+                score += WinGain + ScoreGuide[WinGuide[otherMove]];
+                continue;
             }
 
-            if (yourMove == "Paper") {
-                if (otherMove == "Scissors") {
-                    continue;
-                }
-
-                if (otherMove == "Rock") {
-                    score += WinGain;
-                    continue;
-                }
-
-                score += DrawGain;
+            if (endResult == DrawGain) {
+                score += DrawGain + ScoreGuide[otherMove];
+                continue;
             }
 
-            if (yourMove == "Scissors") {
-                if (otherMove == "Rock") {
-                    continue;
-                }
-
-                if (otherMove == "Paper") {
-                    score += WinGain;
-                    continue;
-                }
-
-                score += DrawGain;
-            }
-
+            if (endResult == 0) {
+                score += ScoreGuide[WinGuide.FirstOrDefault(x => x.Value == otherMove).Key];
+            }   
         }
 
         Console.WriteLine(score);
