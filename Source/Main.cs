@@ -2,6 +2,7 @@
 
 public class AdventOfCode {
     public static void Main() {
-        Day1.Run();
+        //Day1.Run();
+        Day2.Run();
     }
 }
