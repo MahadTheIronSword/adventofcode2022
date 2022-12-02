@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace AdventOfCode;
+﻿namespace AdventOfCode;
 
 public class AdventOfCode {
     public static void Main() {
-        Console.WriteLine("Hello world!");
+        Day1.Run();
     }
 }
