@@ -6,13 +6,28 @@ public static class Day3 {
 
         List<char> intersections = new List<char>();
 
+        int i = 0;
+        List<string> rugsacks = new List<string>();
+
         foreach (string line in lines) {
-            string firstCompartment = line.Substring(0, line.Length / 2);
-            string secondCompartment = line.Substring(line.Length / 2, line.Length / 2);
+            rugsacks.Add(line);
+            i++;
 
-            char intersection = firstCompartment.Intersect(secondCompartment).ToArray()[0];
+            if (i >= 3) {
+                // find intersection
+                string currentIntersection = rugsacks[0];
+                
+                foreach (string rugsack in rugsacks) {
+                    string intersection = String.Join("", currentIntersection.Intersect(rugsack));
+                    currentIntersection = intersection;
+                }
 
-            intersections.Add(intersection);
+                char charIntersect = currentIntersection[0];
+                intersections.Add(charIntersect);
+
+                i = 0;
+                rugsacks.Clear();
+            }
         }
 
         int totalPriority = 0;
