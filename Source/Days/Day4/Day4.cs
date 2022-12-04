@@ -17,7 +17,7 @@ public static class Day4 {
             int min1 = Int32.Parse(secondPair[0]);
             int max1 = Int32.Parse(secondPair[1]);
 
-            if ((min0 <= min1 && max0 >= max1) || (min1 <= min0 && max1 >= max0)) {
+            if ((min0 <= min1 && max0 >= min1) || (min1 <= min0 && max1 >= min0)) {
                 total++;
             }
         }
