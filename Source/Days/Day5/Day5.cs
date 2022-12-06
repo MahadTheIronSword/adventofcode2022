@@ -19,11 +19,18 @@ public static class Day5 {
                 List<char> startRow = data[start - 1];
                 List<char> endRow = data[end - 1];
 
+                List<char> toMove = new List<char>();
+
                 for (int i = 0; i < amount; i++) {
                     char top = startRow[0];
                     startRow.RemoveAt(0);
 
-                    endRow.Insert(0, top);
+                    toMove.Add(top);
+                }
+
+                toMove.Reverse();
+                foreach (char c in toMove) {
+                    endRow.Insert(0, c);
                 }
             } else {
                 int index = 0;
@@ -40,14 +47,6 @@ public static class Day5 {
                 }
             }
         }
-
-        foreach (List<char> row in data) {
-            foreach (char c in row) {
-                //Console.WriteLine(c);
-            }
-            //Console.WriteLine("-------------------------");
-        }
-
 
         string answer = "";
 
