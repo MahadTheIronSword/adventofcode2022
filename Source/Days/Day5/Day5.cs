@@ -8,7 +8,6 @@ public static class Day5 {
         for (int i = 0; i < 9; i++) { data.Add(new List<char>()); }
 
         foreach (string line in lines) {
-            //if (line.StartsWith("move")) {
             if (line.StartsWith("move")) {
                 string[] split = line.Split(" ");
 
